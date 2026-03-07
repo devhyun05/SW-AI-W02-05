@@ -21,7 +21,8 @@
 - 팩토리얼: n! = n × (n-1)!, 0! = 1
 - 피보나치: fib(n) = fib(n-1) + fib(n-2), fib(0) = 0, fib(1) = 1
 """
-
+def recur_func():
+    recur_func()
 def factorial(n):
     """
     재귀를 사용한 팩토리얼 계산
@@ -39,6 +40,14 @@ def factorial(n):
     # TODO: recursive case를 작성하세요
     pass
 
+    if n == 0 or n == 1:
+        return 1
+    return n * factorial(n-1)
+
+# n = 5, 5 * factorial(4)    
+# n = 4, 4 * factorial(3)
+# n = 3, 3 * factorial(2)
+# n = 2, 2 * factorial(1)
 def fibonacci(n):
     """
     재귀를 사용한 피보나치 수 계산
@@ -49,12 +58,24 @@ def fibonacci(n):
     Returns:
         n번째 피보나치 수
     """
+
     # TODO: base case를 작성하세요
     # n이 0이면 0, n이 1이면 1 반환
     pass
     
     # TODO: recursive case를 작성하세요
     pass
+
+    # 피보나치란 0과 1로 시작해 앞의 두 수를 더해서 이어 만드는 수열 
+    # 0,1,1,2,3,5,8 ... 
+
+    # fibonacci(2)
+    # n=2, fibonacci(1) + fibonacci(0)
+    if n == 0 or n == 1:
+        return n 
+    
+    return fibonacci(n-1) + fibonacci(n-2)
+
 
 # 테스트 케이스
 if __name__ == "__main__":

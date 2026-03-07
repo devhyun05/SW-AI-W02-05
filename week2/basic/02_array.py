@@ -41,15 +41,49 @@ def rotate_matrix_90(matrix):
     Returns:
         회전된 2차원 리스트
     """
-    n = len(matrix)
-    
+    # 입력:
+    # [
+    #     [1, 2, 3],
+    #     [4, 5, 6],
+    #     [7, 8, 9]
+    # ]
+
+    # 출력:
+    # [
+    #     [7, 4, 1],
+    #     [8, 5, 2],
+    #     [9, 6, 3]
+    # ]
+
+    # sudo code
+    # [0][0] -> [2][0]
+    # [0][1] -> [1][0]
+    # [0][2] -> [0][0]
+
+    # [1][0] -> [2][1]
+    # [1][1] -> [1][1]
+    # [1][2] -> [0][1]
+
+    # [2][0] -> [0][2]
+    # [2][1] -> [1][2]
+    # [2][2] -> [0][2]
     # TODO: n x n 크기의 새로운 배열을 생성하세요 (0으로 초기화)
     pass
         
     # TODO: 원본 배열의 각 요소를 회전된 위치에 배치하세요
     # 힌트: (i, j) 위치의 요소는 회전 후 (j, n-1-i) 위치로 이동
     pass
-    
+        
+    n = len(matrix)
+    rotated = [[0 for _ in range(n)] for _ in range(n)]
+
+    for i in range(n):
+        for j in range(n): 
+            rotated[i][j] = matrix[n-j-1][i]
+        
+
+
+
     return rotated
 
 def print_matrix(matrix):

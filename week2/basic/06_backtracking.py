@@ -33,6 +33,15 @@ def combinations(n, k):
     Returns:
         모든 조합의 리스트
     """
+    # TODO: base case - k개를 모두 선택했으면 결과에 추가
+    pass
+        
+    # TODO: start부터 n까지 숫자를 하나씩 시도
+    ## TODO: 백트랙킹 3단계 구현
+    ## 1. 선택(Choose)
+    ## 2. 탐색(Explore)
+    ## 3. 취소(Unchoose)
+    pass
     result = []
     
     def backtrack(start, current_combination):
@@ -43,18 +52,21 @@ def combinations(n, k):
             start: 탐색을 시작할 숫자
             current_combination: 현재까지 선택한 숫자들
         """
-        # TODO: base case - k개를 모두 선택했으면 결과에 추가
-        pass
+
+        if len(current_combination) == k:
+            print("here")
+            result.append(current_combination)
         
-        # TODO: start부터 n까지 숫자를 하나씩 시도
-        ## TODO: 백트랙킹 3단계 구현
-        ## 1. 선택(Choose)
-        ## 2. 탐색(Explore)
-        ## 3. 취소(Unchoose)
-        pass
-    
+        current_combination.append(start)
+        backtrack(start+1, current_combination)
+        current_combination.pop()
+
     backtrack(1, [])
-    return result
+    return result 
+     
+
+    
+
 
 def combinations_itertools_compare(n, k):
     """
@@ -96,3 +108,20 @@ if __name__ == "__main__":
     print(f"C({n4}, {k4}) = {result4}")
     print(f"총 {len(result4)}개의 조합")
 
+
+
+def combinations(n, k): 
+    result = []
+
+    def backtrack(curr_num, nums):
+        if curr_num > n:
+            return
+        if len(nums) == k:
+            result.append(nums)
+            return
+        nums.append(curr_num)
+        backtrack(curr_num, nums)
+
+    backtrack(1, [])
+    
+    return result 
