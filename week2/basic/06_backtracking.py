@@ -38,29 +38,34 @@ def combinations(n, k):
         
     # TODO: start부터 n까지 숫자를 하나씩 시도
     ## TODO: 백트랙킹 3단계 구현
-    ## 1. 선택(Choose)
-    ## 2. 탐색(Explore)
-    ## 3. 취소(Unchoose)
+    ## 1. 선택(Choose): 현재 가능한 값을 넣는것 
+    ## 2. 탐색(Explore): 넣은 값으로 끝까지 확인하는것 
+    ## 3. 취소(Unchoose): 해보고 안된다면 취소하고 다른 값을 넣어보는것 
     pass
     result = []
-    
-    def backtrack(start, current_combination):
-        """
-        백트랙킹 헬퍼 함수
-        
-        Args:
-            start: 탐색을 시작할 숫자
-            current_combination: 현재까지 선택한 숫자들
-        """
 
-        if len(current_combination) == k:
-            print("here")
-            result.append(current_combination)
+    def backtrack(curr_num, curr_comb):
+        # base case 
+        if len(curr_comb) == k:
+            result.append(curr_comb[:])
+            return 
+        if curr_num > n: 
+            return 
         
-        current_combination.append(start)
-        backtrack(start+1, current_combination)
-        current_combination.pop()
+        # 선택: 1. 현재 숫자를 뽑는다
+        #      2. 현재 숫자를 뽑지 않는다 
+        #
+        curr_comb.append(curr_num)
 
+        # 탐색: 조합이 완료될때까지 계속 뽑는다 
+        backtrack(curr_num+1, curr_comb)
+
+        # 취소: 더 이상 할 수 있는 조합이 없을때 취소하고 다음걸 뽑는다 
+        curr_comb.pop()
+        backtrack(curr_num+1, curr_comb)
+
+
+        
     backtrack(1, [])
     return result 
      

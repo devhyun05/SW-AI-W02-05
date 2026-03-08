@@ -40,7 +40,7 @@ def factorial(n):
     # TODO: recursive case를 작성하세요
     pass
 
-    if n == 0 or n == 1:
+    if n ==  0 or n == 1:
         return 1
     return n * factorial(n-1)
 
@@ -71,8 +71,10 @@ def fibonacci(n):
 
     # fibonacci(2)
     # n=2, fibonacci(1) + fibonacci(0)
-    if n == 0 or n == 1:
-        return n 
+    if n == 0:
+        return 0 
+    if n == 1:
+        return 1
     
     return fibonacci(n-1) + fibonacci(n-2)
 
