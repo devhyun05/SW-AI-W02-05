@@ -1,3 +1,4 @@
+import math 
 """
 [정수론 - 최대공약수(GCD)와 최소공배수(LCM)]
 
@@ -34,10 +35,18 @@ def gcd(a, b):
     Returns:
         최대공약수
     """
+  
     # TODO: 유클리드 호제법 구현
     # base case: b가 0이면 a 반환
     # recursive를 이용 
+    
     pass
+    if b == 0: 
+        return a 
+    
+    return gcd(b, a % b) 
+
+
 
 def gcd_iterative(a, b):
     """
@@ -51,7 +60,13 @@ def gcd_iterative(a, b):
     """
     # TODO: 반복문으로 구현
     # b가 0이 될 때까지 반복
+
     pass
+    while b != 0: 
+        a, b = b, a % b 
+
+    return a
+    
 
 def lcm(a, b):
     """
@@ -64,7 +79,9 @@ def lcm(a, b):
         최소공배수
     """
     # TODO: LCM 계산
-    pass
+    pass    
+
+    return (a*b) // gcd(a,b)
 
 def extended_gcd(a, b):
     """
@@ -83,6 +100,14 @@ def extended_gcd(a, b):
     # 역추적하며 x, y 계산
     pass
 
+    if b == 0: 
+        return (a, 1, 0)
+    
+    gcd_val, x1, y1 = extended_gcd(b, a % b)
+    x = y1 
+    y = x1 - (a // b) * y1 
+    return (gcd_val, x, y)
+
 def is_prime(n):
     """
     소수 판별
@@ -98,6 +123,18 @@ def is_prime(n):
     # 2부터 sqrt(n)까지 나누어 떨어지는지 확인    
     # 3부터 sqrt(n)까지 홀수만 확인
     pass 
+
+    if n < 2: 
+        return False 
+    if n == 2: 
+        return True 
+    if n % 2 == 0:
+        return False
+    
+    for i in range(3, int(math.sqrt(n)) + 1, 2):
+        if n % i == 0:
+            return False 
+    return True 
 
 # 테스트 케이스
 if __name__ == "__main__":
