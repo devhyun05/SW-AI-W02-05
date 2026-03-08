@@ -45,23 +45,23 @@ def combinations(n, k):
     result = []
 
     def backtrack(curr_num, curr_comb):
-        # base case 
+        # base case: 조합완성 혹은 더 진행 할 수 없는 경우 
         if len(curr_comb) == k:
             result.append(curr_comb[:])
             return 
         if curr_num > n: 
             return 
         
-        # 선택: 1. 현재 숫자를 뽑는다
-        #      2. 현재 숫자를 뽑지 않는다 
-        #
+        # 선택: 현재 고를 수 있는 숫자를 뽑는다 
         curr_comb.append(curr_num)
 
         # 탐색: 조합이 완료될때까지 계속 뽑는다 
         backtrack(curr_num+1, curr_comb)
 
-        # 취소: 더 이상 할 수 있는 조합이 없을때 취소하고 다음걸 뽑는다 
+        # 취소: 방금 뽑은 숫자를 취소하고 이전 상태로 돌아간다 
         curr_comb.pop()
+
+        # 탐색: 이미 탐색한 숫자 말고 다른 조합으로 탐색한다 
         backtrack(curr_num+1, curr_comb)
 
 
