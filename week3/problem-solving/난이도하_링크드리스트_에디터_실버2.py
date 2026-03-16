@@ -1,6 +1,7 @@
 # 링크드리스트 - 에디터 (백준 실버2)
 # 문제 링크: https://www.acmicpc.net/problem/1406
 import sys 
+input = sys.stdin.readline 
 
 class Node: 
     def __init__(self, data, prev=None, next=None):
@@ -18,15 +19,11 @@ class LinkedList:
             self.head = Node(data)
             self.current = self.head 
             return
-
-        curr = self.head 
-
-        while curr.next: 
-            curr = curr.next 
-
-        curr.next = Node(data)
-        self.current = curr.next 
-        self.current.prev = curr     
+ 
+        new_node = Node(data)
+        self.current.next = new_node
+        new_node.prev = self.current 
+        self.current = self.current.next 
 
     def cursor_append(self, data):     
         if self.current is not None: 
@@ -59,14 +56,12 @@ class LinkedList:
             curr = self.head 
 
             while curr: 
-                res.append(curr.data)                
+                if curr.data != "":
+                    res.append(curr.data)                
                 curr = curr.next 
+      
         return res 
 
-    def print_current_node(self):
-        if self.current is not None: 
-            print(self.current.data)
-    
     def delete_cursor_left(self):
         if self.current is not None and self.current is not self.head: 
             prev_node = self.current.prev 
@@ -79,16 +74,16 @@ class LinkedList:
             else:
                 # 노드가 2개 일때 
                 self.head = self.current 
+                self.current.prev = None
 
 li = LinkedList()
-input_data = input()
+input_data = input().rstrip()
 
 for c in input_data: 
     li.append(c)
 li.append("")
 
-print(li.print_nodes_as_list())
-m = int(sys.stdin.readline())
+m = int(input())
 
 for _ in range(m):
     commands = input().split()
