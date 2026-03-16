@@ -1,2 +1,109 @@
 # 링크드리스트 - 에디터 (백준 실버2)
 # 문제 링크: https://www.acmicpc.net/problem/1406
+import sys 
+
+class Node: 
+    def __init__(self, data, prev=None, next=None):
+        self.data = data 
+        self.prev = prev 
+        self.next = next
+
+class LinkedList: 
+    def __init__(self):
+        self.head = None 
+        self.current = None 
+
+    def append(self, data):
+        if self.head is None: 
+            self.head = Node(data)
+            self.current = self.head 
+            return
+
+        curr = self.head 
+
+        while curr.next: 
+            curr = curr.next 
+
+        curr.next = Node(data)
+        self.current = curr.next 
+        self.current.prev = curr     
+
+    def cursor_append(self, data):     
+        if self.current is not None: 
+            if self.current == self.head:       
+                new_node = Node(data)
+                new_node.next = self.current 
+                self.current.prev = new_node        
+                self.head = new_node 
+            else:
+                prev_node = self.current.prev       
+                new_node = Node(data)
+                new_node.prev = prev_node 
+                new_node.next = self.current 
+                prev_node.next = new_node
+                self.current.prev = new_node 
+        
+
+
+    def move_left(self): 
+        if self.current is not None and self.current is not self.head:    
+            self.current = self.current.prev        
+      
+    def move_right(self):
+        if self.current is not None and self.current.next is not None: 
+            self.current = self.current.next 
+        
+    def print_nodes_as_list(self):
+        res = []
+        if self.head is not None: 
+            curr = self.head 
+
+            while curr: 
+                res.append(curr.data)                
+                curr = curr.next 
+        return res 
+
+    def print_current_node(self):
+        if self.current is not None: 
+            print(self.current.data)
+    
+    def delete_cursor_left(self):
+        if self.current is not None and self.current is not self.head: 
+            prev_node = self.current.prev 
+
+            if prev_node.prev:
+                # 노드가 3개 이상일때
+                prev_prev_node = prev_node.prev 
+                prev_prev_node.next = self.current 
+                self.current.prev = prev_prev_node
+            else:
+                # 노드가 2개 일때 
+                self.head = self.current 
+
+li = LinkedList()
+input_data = input()
+
+for c in input_data: 
+    li.append(c)
+li.append("")
+
+print(li.print_nodes_as_list())
+m = int(sys.stdin.readline())
+
+for _ in range(m):
+    commands = input().split()
+    command = commands[0]
+
+    if command == "P":   
+        li.cursor_append(commands[1])
+    elif command == "L":     
+        li.move_left()
+    elif command == "D":
+        li.move_right()
+    elif command == "B":
+        li.delete_cursor_left()
+
+
+
+print("".join(li.print_nodes_as_list()))
+
