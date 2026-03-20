@@ -50,6 +50,15 @@ def search_bst(root, target):
     Returns:
         True/False
     """
+    if root is None: 
+        return False 
+    if root.value == target: 
+        return True 
+    elif root.value > target: 
+        return search_bst(root.left, target)
+    else:
+        return search_bst(root.right, target)
+
     # TODO: root가 None이면 False 반환
     pass
     
