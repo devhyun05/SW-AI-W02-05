@@ -16,6 +16,7 @@
 #     print(new_s)
 
 # 테스트 케이스의 개수 
+
 T = int(input())
 
 for _ in range(T):
