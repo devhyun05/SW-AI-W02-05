@@ -4,24 +4,20 @@
 equation = input()
 
 
-if "-" not in equation:
-    equation_list = equation.split("+")
+equation_list = equation.split("-")
+res = 0
 
-    for i in range(len(equation_list)): 
-        equation_list[i] = int(equation_list[i])
-    print(sum(equation_list))
-else:
-    equation_list = equation.split("-")
-    res = 0
+for i in range(len(equation_list)): 
+    curr_list = equation_list[i].split("+")
 
-    for i in range(len(equation_list)): 
-        curr_list = equation_list[i].split("+")
-        for j in range(len(curr_list)):
-            curr_list[j] = int(curr_list[j])
-        num_sum = sum(curr_list)
-        if i == 0:
-            res += num_sum 
-        else:
-            res -= num_sum 
+    for j in range(len(curr_list)):
+        curr_list[j] = int(curr_list[j])
 
-    print(res)
+    num_sum = sum(curr_list)
+
+    if i == 0:
+        res += num_sum 
+    else:
+        res -= num_sum 
+
+print(res)
