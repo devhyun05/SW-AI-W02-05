@@ -1,5 +1,5 @@
-# DP - LCS (백준 골드5)
-# 문제 링크: https://www.acmicpc.net/problem/9251
+# DP - LCS (백준 9251)
+# 앞에서부터 확인하는 Top-Down DP
 
 import sys
 sys.setrecursionlimit(10**6)
@@ -7,23 +7,31 @@ sys.setrecursionlimit(10**6)
 text1 = input()
 text2 = input()
 
-dp = [[-1] * (len(text2)+1) for _ in range(len(text1)+1)]
+text1_length = len(text1)
+text2_length = len(text2)
 
-def longest_common_subsequence(text1_pos, text2_pos): 
-    # base case
-    if text1_pos < 0 or text2_pos < 0: 
-        return 0 
-    
-    if dp[text1_pos+1][text2_pos+1] != -1:
-        return dp[text1_pos+1][text2_pos+1]
+dp = [[-1] * text2_length for _ in range(text1_length)]
 
-    # case 1: 만약에 마지막 character가 같을때 
-    if text1[text1_pos] == text2[text2_pos]: 
-        dp[text1_pos+1][text2_pos+1] = longest_common_subsequence(text1_pos-1, text2_pos-1) + 1       
+def longest_common_subsequence(text1_index, text2_index):
+    # base case: 둘 중 하나라도 끝까지 가면 더 이상 공통 부분 수열이 없음
+    if text1_index == text1_length or text2_index == text2_length:
+        return 0
+
+    if dp[text1_index][text2_index] != -1:
+        return dp[text1_index][text2_index]
+
+    # 현재 문자가 같은 경우
+    if text1[text1_index] == text2[text2_index]:
+        dp[text1_index][text2_index] = 1 + longest_common_subsequence(
+            text1_index + 1, text2_index + 1
+        )
     else:
-        # case 2: 만약에 현재 위치에 있는 각 text의 character가 다를 때 
-        dp[text1_pos+1][text2_pos+1] = max(longest_common_subsequence(text1_pos-1, text2_pos), longest_common_subsequence(text1_pos, text2_pos-1))
+        # 현재 문자가 다른 경우
+        dp[text1_index][text2_index] = max(
+            longest_common_subsequence(text1_index + 1, text2_index),
+            longest_common_subsequence(text1_index, text2_index + 1)
+        )
 
-    return dp[text1_pos+1][text2_pos+1]
+    return dp[text1_index][text2_index]
 
-print(longest_common_subsequence(len(text1)-1, len(text2)-1))
+print(longest_common_subsequence(0, 0))
